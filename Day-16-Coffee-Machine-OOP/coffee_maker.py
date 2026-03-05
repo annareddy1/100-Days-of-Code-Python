@@ -1,63 +1,51 @@
-# This class represents a coffee machine.
-# Think of it like a robot that knows how to make coffee.
+# OOP Lesson: A CLASS is a blueprint for a machine.
+# CoffeeMaker is the blueprint for a coffee-making robot.
 class CoffeeMaker:
 
-    # This runs when we first create the coffee machine.
-    # It tells the machine how much water, milk, and coffee it has.
+    # OOP Lesson: __init__ is the CONSTRUCTOR.
+    # It runs when we create a CoffeeMaker object.
     def __init__(self):
-        # The machine has some ingredients stored inside it.
+
+        # OOP Lesson: ATTRIBUTES are things the object remembers.
+        # This machine remembers how many ingredients it has.
         self.resources = {
-            "water": 300,   # 300 ml of water
-            "milk": 200,    # 200 ml of milk
-            "coffee": 100,  # 100 grams of coffee powder
+            "water": 300,
+            "milk": 200,
+            "coffee": 100,
         }
 
-    # This function shows us how much ingredients are left.
+    # OOP Lesson: METHODS are actions the object can do.
+    # This method shows what ingredients are left.
     def report(self):
-        """Prints a report of all resources."""
+        """Print remaining resources"""
 
-        # Show how much water is left
         print(f"Water: {self.resources['water']}ml")
-
-        # Show how much milk is left
         print(f"Milk: {self.resources['milk']}ml")
-
-        # Show how much coffee powder is left
         print(f"Coffee: {self.resources['coffee']}g")
 
-    # This function checks if the machine has enough ingredients
-    # to make the drink someone asked for.
+    # This method checks if we have enough ingredients for a drink
     def is_resource_sufficient(self, drink):
-        """Returns True when order can be made, False if ingredients are insufficient."""
+        """Return True if ingredients are enough"""
 
-        # Assume we can make the drink
         can_make = True
 
         # Look at each ingredient the drink needs
         for item in drink.ingredients:
 
-            # If the drink needs more than what we have
+            # If the machine has less than needed
             if drink.ingredients[item] > self.resources[item]:
-
-                # Tell the user we don't have enough
                 print(f"Sorry there is not enough {item}.")
-
-                # We cannot make the drink
                 can_make = False
 
-        # Return True or False depending on whether we can make it
         return can_make
 
-    # This function actually makes the coffee.
-    # It uses up the ingredients from the machine.
+    # This method uses ingredients to make the coffee
     def make_coffee(self, order):
-        """Deducts the required ingredients from the resources."""
+        """Use ingredients and make the drink"""
 
-        # For each ingredient the drink needs
+        # Reduce ingredients used for the drink
         for item in order.ingredients:
-
-            # Subtract the amount used from the machine's storage
             self.resources[item] -= order.ingredients[item]
 
-        # Tell the user their coffee is ready
+        # Tell the user the coffee is ready
         print(f"Here is your {order.name} ☕️. Enjoy!")

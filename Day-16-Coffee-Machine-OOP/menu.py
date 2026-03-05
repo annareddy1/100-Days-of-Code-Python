@@ -1,78 +1,63 @@
-# This class represents ONE drink on the menu.
-# Like one card on a restaurant menu that says what the drink needs.
+# OOP Lesson: A CLASS is a blueprint.
+# MenuItem is the blueprint for one drink.
 class MenuItem:
 
     """Models each Menu Item."""
 
-    # This runs when we create a new drink.
-    # It stores the drink's name, ingredients, and price.
+    # OOP Lesson: __init__ is the CONSTRUCTOR.
+    # It runs when we create a new drink object.
     def __init__(self, name, water, milk, coffee, cost):
 
-        # The name of the drink (latte, espresso, etc.)
-        self.name = name
+        # OOP Lesson: ATTRIBUTES are things the object remembers
+        self.name = name   # drink name
+        self.cost = cost   # drink price
 
-        # How much the drink costs
-        self.cost = cost
-
-        # A list of ingredients needed to make the drink
+        # Ingredients needed to make this drink
         self.ingredients = {
-            "water": water,    # How much water the drink needs
-            "milk": milk,      # How much milk the drink needs
-            "coffee": coffee   # How much coffee powder it needs
+            "water": water,
+            "milk": milk,
+            "coffee": coffee
         }
 
 
-# This class represents the whole menu of the coffee shop.
-# Think of it like the big menu board in a café.
+# OOP Lesson: Another CLASS that manages many drinks.
+# Menu is like a manager that holds all MenuItem objects.
 class Menu:
 
     """Models the Menu with drinks."""
 
-    # This runs when the menu is created.
+    # CONSTRUCTOR: runs when a Menu object is created
     def __init__(self):
 
-        # We create a list of drinks the shop can make.
+        # OOP Lesson: OBJECTS created from MenuItem class
         self.menu = [
-
-            # Latte drink
             MenuItem(name="latte", water=200, milk=150, coffee=24, cost=2.5),
-
-            # Espresso drink
             MenuItem(name="espresso", water=50, milk=0, coffee=18, cost=1.5),
-
-            # Cappuccino drink
             MenuItem(name="cappuccino", water=250, milk=50, coffee=24, cost=3),
         ]
 
-    # This function shows all the drinks available on the menu.
+    # OOP Lesson: METHODS are actions objects can do
     def get_items(self):
-        """Returns all the names of the available menu items"""
+        """Returns the names of drinks on the menu"""
 
-        # Start with an empty string
         options = ""
 
-        # Go through every drink in the menu
+        # Look at each drink object in the menu
         for item in self.menu:
-
-            # Add the drink name to the options list
             options += f"{item.name}/"
 
-        # Return something like "latte/espresso/cappuccino/"
         return options
 
-    # This function looks for the drink the user asked for.
+    # This method searches for a drink by name
     def find_drink(self, order_name):
 
-        """Searches the menu for a particular drink by name"""
+        """Find and return the drink object"""
 
-        # Look at each drink in the menu
         for item in self.menu:
 
-            # If the name matches what the user asked for
+            # If the drink name matches the order
             if item.name == order_name:
-
-                # Give back that drink object
                 return item
 
-        # If the drink does not exist in the menu
+        # If the drink does not exist
         print("Sorry that item is not available.")

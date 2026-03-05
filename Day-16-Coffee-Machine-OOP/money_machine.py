@@ -1,82 +1,75 @@
-# This class is like the money box inside the coffee machine.
-# It knows how to take coins and check if the user paid enough.
+# OOP Lesson: A CLASS is a blueprint (like a toy design).
+# This class designs a "Money Machine" that can take coins.
 class MoneyMachine:
 
-    # This is the symbol used for money
+    # OOP Lesson: CLASS VARIABLES belong to the whole class (shared by all objects)
     CURRENCY = "$"
 
-    # These are the values of each coin
+    # This dictionary tells how much each coin is worth
     COIN_VALUES = {
-        "quarters": 0.25,  # one quarter = 25 cents
-        "dimes": 0.10,     # one dime = 10 cents
-        "nickles": 0.05,   # one nickel = 5 cents
-        "pennies": 0.01    # one penny = 1 cent
+        "quarters": 0.25,  # 25 cents
+        "dimes": 0.10,     # 10 cents
+        "nickles": 0.05,   # 5 cents
+        "pennies": 0.01    # 1 cent
     }
 
-    # This runs when the money machine starts
+    # OOP Lesson: __init__ is the CONSTRUCTOR.
+    # It runs when we create a new MoneyMachine object.
     def __init__(self):
 
-        # Total money the coffee machine has earned
-        self.profit = 0
+        # OOP Lesson: ATTRIBUTES are variables that belong to the object
+        self.profit = 0          # total money earned
+        self.money_received = 0  # money user inserted
 
-        # Money the user just inserted
-        self.money_received = 0
-
-    # This function shows how much money the machine has made
+    # OOP Lesson: METHODS are actions the object can do
     def report(self):
-        """Prints the current profit"""
+        """Shows how much money the machine has made"""
 
-        # Print the total money earned
+        # The machine tells us its profit
         print(f"Money: {self.CURRENCY}{self.profit}")
 
-    # This function asks the user to insert coins
+    # This method asks the user to insert coins
     def process_coins(self):
-        """Returns the total calculated from coins inserted."""
+        """Calculates total money inserted"""
 
-        # Tell the user to insert coins
         print("Please insert coins.")
 
-        # Go through each type of coin
+        # Look at each coin type and count the money
         for coin in self.COIN_VALUES:
-
-            # Ask how many of that coin the user inserted
-            # Multiply by the coin value to calculate the money
             self.money_received += int(input(f"How many {coin}?: ")) * self.COIN_VALUES[coin]
 
-        # Return the total money inserted
+        # Return the total money the user inserted
         return self.money_received
 
-    # This function checks if the user paid enough for the drink
+    # This method checks if the user paid enough
     def make_payment(self, cost):
-        """Returns True when payment is accepted, or False if insufficient."""
+        """Returns True if payment works, False if not"""
 
-        # First ask the user to insert coins
+        # Ask for coins first
         self.process_coins()
 
-        # Check if the user gave enough money
+        # If the user gave enough money
         if self.money_received >= cost:
 
-            # Calculate change to give back
+            # Calculate change
             change = round(self.money_received - cost, 2)
 
-            # Tell the user their change
+            # Give change back
             print(f"Here is {self.CURRENCY}{change} in change.")
 
-            # Add the drink cost to the machine's profit
+            # Add money to the machine's profit
             self.profit += cost
 
-            # Reset money received for the next user
+            # Reset money for next customer
             self.money_received = 0
 
-            # Payment successful
             return True
 
         else:
-            # If the money is not enough
+            # Not enough money → refund
             print("Sorry that's not enough money. Money refunded.")
 
-            # Reset money received
+            # Reset inserted money
             self.money_received = 0
 
-            # Payment failed
             return False
